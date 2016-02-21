@@ -15,9 +15,24 @@ public abstract class Card {
 	public Card(String fName, String sName){
 		firstName = fName;
 		surName = sName;
+		makeCardNumber();
+	}
+	
+	public Card(String name){
+		if(name.contains(" ")){
+			int spacePos = name.lastIndexOf(' ');
+			firstName = name.substring(0, spacePos);
+			surName = name.substring(spacePos+1, name.length());
+			makeCardNumber();
+		}
+	}
+	
+	private void makeCardNumber(){
 		cardLocked = false;
 		while(true){
 			String temp = Integer.toString((int)(Math.random()*100000000));
+			while(temp.length() < 8) //Ensure 8 digits
+				temp = "0" + temp;
 			if(!cardNumbers.contains(temp))
 				cardNumber = temp;
 				break;
@@ -37,6 +52,6 @@ public abstract class Card {
 	}
 	
 	public String toString(){
-		return getName() + ", " + cardNumber + ", " + "\nSperret: " + cardLocked;
+		return getName() + ", " + cardNumber + "\nSperret: " + cardLocked;
 	}
 }
