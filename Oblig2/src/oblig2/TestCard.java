@@ -9,16 +9,20 @@ public class TestCard {
 		
 		cardList.add(new Employee("Ole", "Olsen", "1234", 148.72f, 4));
 		cardList.add(new Guest("Marit Hagen"));
+		cardList.add(new Guest("Are Bjerken"));
 		
 		//Testing if cloning works
 		try {
 			cardList.add((Employee)(cardList.get(0).clone()));
+			cardList.add((Guest)(cardList.get(2).clone()));
 		} catch (CloneNotSupportedException e) {
 			System.out.println("Cloning went wrong.");
 			e.printStackTrace();
 		} finally {
 			//Why am I allowed to access protected method from a non-child class?
-			cardList.get(2).setFirstName("Arne");
+			cardList.get(3).setFirstName("Arne");
+			cardList.get(4).setSurName("Bjerkmo");
+			((Guest)cardList.get(4)).extendExpiration(2);
 		}
 		
 		Collections.sort(cardList);
