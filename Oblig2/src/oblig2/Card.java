@@ -9,7 +9,7 @@ public abstract class Card {
 	private String firstName;
 	private String surName;
 	private boolean cardLocked;
-	//Aksesskode?
+	//"Aksesskode"?
 	
 	public abstract boolean checkPIN(String pin);
 
