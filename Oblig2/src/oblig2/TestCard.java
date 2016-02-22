@@ -6,7 +6,7 @@ public class TestCard {
 	public static void main(String[] args){
 		ArrayList<Card> cardList = new ArrayList<Card>();
 		
-		cardList.add(new Employee("Ole", "Olsen", "1234"));
+		cardList.add(new Employee("Ole", "Olsen", "1234", 148.72f, 4));
 		cardList.add(new Guest("Marit Olsen"));
 		
 		for(Card card : cardList){

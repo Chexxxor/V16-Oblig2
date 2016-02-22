@@ -1,5 +1,6 @@
 package oblig2;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -32,6 +33,12 @@ public class Guest extends Card {
 		if(expires.before(now))
 			lockCard();
 		return false;
+	}
+	
+	@Override
+	public String toString(){
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		return super.toString() + "\nExpires: " + dateFormat.format(expires.getTime());
 	}
 
 }
