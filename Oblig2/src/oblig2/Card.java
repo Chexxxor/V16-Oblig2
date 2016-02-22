@@ -1,6 +1,7 @@
 package oblig2;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public abstract class Card {
 	private static ArrayList<String> cardNumbers = new ArrayList<String>();
@@ -12,19 +13,19 @@ public abstract class Card {
 	
 	public abstract boolean checkPIN(String pin);
 
-	public Card(String fName, String sName){
+	public Card(String fName, String sName) throws InputMismatchException {
+		if(fName.isEmpty() || sName.isEmpty())
+			throw new InputMismatchException("Both input strings must be non-empty.");
 		firstName = fName;
 		surName = sName;
 		makeCardNumber();
 	}
 	
-	public Card(String name){
-		if(name.contains(" ")){
-			int spacePos = name.lastIndexOf(' ');
-			firstName = name.substring(0, spacePos);
-			surName = name.substring(spacePos+1, name.length());
-			makeCardNumber();
-		}
+	public Card(String name) throws InputMismatchException {
+		if(name.trim().length() < 3)
+			throw new InputMismatchException("String must be at least 3 characters long.");
+		setFullName(name.trim());
+		makeCardNumber();
 	}
 	
 	private void makeCardNumber(){
@@ -39,8 +40,34 @@ public abstract class Card {
 		}
 	}
 	
-	public String getName(){
+	public String getFirstName(){
+		return firstName;
+	}
+	
+	public String getSurName(){
+		return surName;
+	}
+	
+	public String getFullName(){
 		return firstName + " " + surName;
+	}
+
+	protected void setFullName(String name) throws InputMismatchException {
+		if(name.contains(" ")){
+			int spacePos = name.lastIndexOf(' ');
+			firstName = name.substring(0, spacePos);
+			surName = name.substring(spacePos+1, name.length());
+		}
+		else
+			throw new InputMismatchException("Names must be separated by whitespace character ' '.");
+	}
+	
+	protected void setFirstName(String name){
+		firstName = name;
+	}
+	
+	protected void setSurName(String name){
+		surName = name;
 	}
 	
 	protected void lockCard(){
@@ -51,7 +78,8 @@ public abstract class Card {
 		return cardLocked;
 	}
 	
+	@Override
 	public String toString(){
-		return getName() + ", " + cardNumber + "\nSperret: " + cardLocked;
+		return getFullName() + ", " + cardNumber + "\nLocked: " + cardLocked;
 	}
 }
