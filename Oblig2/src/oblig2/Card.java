@@ -3,7 +3,7 @@ package oblig2;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-public abstract class Card {
+public abstract class Card implements Comparable<Card>, Cloneable {
 	private static ArrayList<String> cardNumbers = new ArrayList<String>();
 	private String cardNumber;
 	private String firstName;
@@ -76,6 +76,19 @@ public abstract class Card {
 		
 	public boolean isLocked(){
 		return cardLocked;
+	}
+	
+	@Override
+	public int compareTo(Card card){
+		if(getSurName().equals(card.getSurName()))
+			return getFirstName().compareTo(card.getFirstName());
+		else
+			return getSurName().compareTo(card.getSurName());
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
 	}
 	
 	@Override
