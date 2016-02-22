@@ -21,6 +21,10 @@ public class Guest extends Card {
 		expires = new GregorianCalendar();
 		expires.add(Calendar.DAY_OF_MONTH, 7);
 	}
+	
+	public void extendExpiration(int days){
+		expires.add(Calendar.DAY_OF_MONTH, days);
+	}
 
 	@Override
 	public boolean checkPIN(String pin) {
@@ -39,6 +43,13 @@ public class Guest extends Card {
 	public String toString(){
 		SimpleDateFormat dateFormat = new SimpleDateFormat();
 		return super.toString() + "\nExpires: " + dateFormat.format(expires.getTime());
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		Guest guest = (Guest)(super.clone());
+		guest.expires = (GregorianCalendar)expires.clone();
+		return guest;
 	}
 
 }
